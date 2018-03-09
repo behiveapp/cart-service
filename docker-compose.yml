@@ -12,5 +12,19 @@ services:
       - bridge
     environment:
       - PORT=3000
+      - DATABASE_HOST=mongo:3001
+    depends_on:
+      - mongo
+  mongo:
+    container_name: cart-mongo
+    image: mongo
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 3001:27017
+    networks:
+      - bridge
+volumes:
+  mongo_data:
 networks:
   bridge:
