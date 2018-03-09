@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    container_name: cart-service
+    image: behive/cart-service
+    build: .
+    volumes:
+      - ".:/src"
+    ports:
+      - 3000:3000
+    networks:
+      - bridge
+    environment:
+      - PORT=3000
+networks:
+  bridge:
