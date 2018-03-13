@@ -10,4 +10,4 @@ RUN bundle install
 COPY . $APP_HOME
 ENV PORT 3000
 EXPOSE 3000
-CMD ["ruby", "src/app.rb"]
+CMD ["rackup", "src/config.ru"]
