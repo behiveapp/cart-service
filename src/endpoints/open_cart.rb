@@ -1,7 +1,14 @@
 require "model/cart"
-require "json"
+require "sinatra/json"
+require 'lib/errors/validation_error'
+require 'byebug'
 
 def open_cart
-  content_type :json
-  Cart.create test: "Test"
+  begin
+    @cart = Cart.create @body
+    json @cart
+  rescue => e
+    byebug
+    raise ValidationError.new @body
+  end
 end

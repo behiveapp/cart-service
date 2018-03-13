@@ -3,6 +3,9 @@ install:
 	docker-compose build
 start: 
 	docker-compose up
+start-debug: 
+	docker-compose up -d
+	docker attach cart-service
 # test:
 # 	docker-compose -f $(DOCKER_TEST) run app npm run test
 # test-unit:
