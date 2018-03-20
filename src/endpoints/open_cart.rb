@@ -1,6 +1,6 @@
 require "model/cart"
 require "sinatra/json"
-require 'lib/errors/validation_error'
+require 'lib/errors/mongo_errors'
 
 def open_cart
   begin
