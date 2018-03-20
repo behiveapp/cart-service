@@ -1,7 +1,6 @@
 require "model/cart"
 require "sinatra/json"
 require 'lib/errors/mongo_errors'
-require 'byebug'
 
 def remove_product
   begin
