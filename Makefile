@@ -6,8 +6,10 @@ start:
 start-debug: 
 	docker-compose up -d
 	docker attach cart-service
-# test:
-# 	docker-compose -f $(DOCKER_TEST) run app npm run test
+test:
+	docker-compose run app bundle exec rspec
+rubocop:
+	docker-compose run app rubocop
 # test-unit:
 # 	docker-compose -f $(DOCKER_TEST) run app npm run test-unit
 # test-system:

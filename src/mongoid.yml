@@ -4,3 +4,9 @@ development:
       database: <%= ENV['DATABASE_NAME'] %>
       hosts:
         - <%= ENV['DATABASE_HOST'] %>
+test:
+  clients:
+    default:
+      database: <%= ENV['DATABASE_NAME'] %>-test
+      hosts:
+        - <%= ENV['DATABASE_HOST'] %>

@@ -1,7 +1,7 @@
 require 'mongoid'
-require 'model/seller'
-require 'model/buyer'
-require 'model/product'
+require_relative 'seller'
+require_relative 'buyer'
+require_relative 'product'
 
 class Cart
   include Mongoid::Document

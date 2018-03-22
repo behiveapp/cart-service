@@ -1,6 +1,6 @@
-require "model/cart"
 require "sinatra/json"
-require 'lib/errors/mongo_errors'
+require_relative "../model/cart"
+require_relative "../lib/errors/mongo_errors"
 
 def get_cart
   begin
