@@ -6,11 +6,15 @@ module CartService
   module Endpoints
     # Module representing POST / endpoint
     module OpenCart
-      def self.do_action(app, body)
-        @cart = Cart.create body
-        app.json @cart
-      rescue StandardError
-        raise ValidationError, body
+      def self.registered(app)
+        app.post '/' do
+          begin
+            @cart = Cart.create @body
+            json @cart
+          rescue StandardError
+            raise ValidationError, @body
+          end
+        end
       end
     end
   end
