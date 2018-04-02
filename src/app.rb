@@ -1,16 +1,25 @@
-require 'sinatra'
-require 'sinatra/reloader' if development?
+require 'sinatra/base'
+require_relative 'lib/middlewares/error_tracking'
 require_relative 'router'
 
-Mongoid.load!("#{File.dirname(__FILE__)}/mongoid.yml")
+# Class representing the whole application
+class CartServiceApp < Sinatra::Base
+  use ErrorTracking
+  register CartService::Endpoints::GetCart
+  register CartService::Endpoints::OpenCart
+  register CartService::Endpoints::AddProduct
+  register CartService::Endpoints::RemoveProduct
 
-configure :development do
-  also_reload 'src/endpoints/*'
-  also_reload 'src/model/*'
-  also_reload 'src/lib/errors/*'
-  also_reload 'src/lib/middlewares/*'
+  before do
+    request.body.rewind
+    payload = request.body.read
+    @body = payload.blank? ? {} : JSON.parse(payload)
+  end
 
-  after_reload do
-    puts 'App reloaded'
+  configure do
+    set :server, :puma
+    set :run, true
+    set :bind, '0.0.0.0'
+    set :port, (ENV['PORT'].strip.empty? ? 3000 : ENV['PORT'])
   end
 end

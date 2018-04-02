@@ -6,9 +6,11 @@ Bundler.require(Sinatra::Base.environment)
 
 require_relative '../../src/app.rb'
 
+Mongoid.load!("#{File.dirname(__FILE__)}/../../src/mongoid.yml")
+
 module RSpecMixin
   def app
-    Sinatra::Application
+    CartServiceApp
   end
 end
 

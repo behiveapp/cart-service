@@ -10,4 +10,4 @@ RUN bundle install
 COPY . $APP_HOME
 ENV PORT 3000
 EXPOSE 3000
-CMD ["rackup", "src/config.ru"]
+CMD ["rerun", "rackup", "src/config.ru"]
