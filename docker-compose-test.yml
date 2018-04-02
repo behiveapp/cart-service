@@ -30,7 +30,7 @@ services:
     environment:
       - PORT=3002
       - NODE_ENV=development
-      - MONGO_URL=mongodb://mongo/products
+      - MONGO_URL=mongodb://mongo/products-test
     depends_on:
       - mongo
   mongo:
