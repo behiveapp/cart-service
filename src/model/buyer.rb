@@ -1,6 +1,8 @@
 require 'mongoid'
+require_relative 'record'
 
-class Buyer
+# Class representing Buyer embedded-collection
+class Buyer < Record
   include Mongoid::Document
 
   field :identifier, type: String
