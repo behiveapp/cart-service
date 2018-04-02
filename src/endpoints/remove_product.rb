@@ -1,24 +1,29 @@
-require "sinatra/json"
-require_relative "../model/cart"
-require_relative "../lib/errors/mongo_errors"
+require 'sinatra/json'
+require_relative '../model/cart'
+require_relative '../lib/errors/mongo_errors'
 
-def remove_product
-  begin
-    @cart = Cart.find params[:id]
+module CartService
+  module Endpoints
+    # Module representing DELETE /:id/product/:product_id endpoint
+    module RemoveProduct
+      def self.do_action(app, _body)
+        find_cart app.params[:id]
+        find_product app.params[:product_id]
+        @product.destroy
+        app.json @cart
+      rescue Mongoid::Errors::DocumentNotFound
+        raise RecordNotFoundError, app.params[:id]
+      end
 
-    #TODO: Improve querying on Mongoid sub-collections
-    @product = (@cart.products.select {|product| 
-      (@body.to_a - product.attributes.keys.reduce({}) {|prev, k| 
-        prev.merge({k => product.attributes[k].to_s})
-      }.to_a).empty?
-    }).first
+      def self.find_cart(id)
+        @cart = Cart.find id
+      end
 
-    raise RecordNotFoundError.new(@body) if @product.nil?
-
-    @product.destroy
-    
-    json @cart
-  rescue Mongoid::Errors::DocumentNotFound => e
-    raise RecordNotFoundError.new params[:id]
+      def self.find_product(id)
+        query = { '_id' => id }
+        @product = @cart.products.where(query).first
+        raise RecordNotFoundError, id if @product.nil?
+      end
+    end
   end
 end

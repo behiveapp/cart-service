@@ -1,32 +1,23 @@
+require 'rest-client'
 require './src/model/cart'
+require_relative 'data_helpers'
 
 def initialize_carts
-  Cart.create JSON.parse(
-    '{
-      "_id": {
-          "$oid": "5ab072faf8245d0001e4e1c1"
-      },
-      "buyer": {
-          "_id": {
-              "$oid": "5aa75292f8245d00016bf8df"
-          },
-          "identifier": "14092959745",
-          "name": "Edson Batista Ferreira Júnior"
-      },
-      "created_at": "2018-03-20T02:33:30.285+00:00",
-      "seller": {
-          "_id": {
-              "$oid": "5aa75156f8245d00016bf8ab"
-          },
-          "full_name": "Império das Grifes",
-          "identifier": "01001001000113",
-          "short_name": null
-      },
-      "updated_at": "2018-03-20T02:33:30.285+00:00"
-  }'
-  )
+  Cart.create cart1
+  Cart.create cart2
 end
 
 def destroy_carts
   Cart.destroy_all
+end
+
+def initialize_products
+  RestClient.post "http://#{ENV['PRODUCTS_SERVICE_HOST']}/",
+                  product1.to_json,
+                  content_type: :json, accept: :json
+end
+
+def destroy_products
+  RestClient.delete "http://#{ENV['PRODUCTS_SERVICE_HOST']}/#{product1['_id']}",
+                    content_type: :json, accept: :json
 end

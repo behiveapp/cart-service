@@ -13,17 +13,17 @@ before do
 end
 
 get '/:id' do
-  get_cart 
+  CartService::Endpoints::GetCart.do_action(self, @body)
 end
 
-post '/open' do
-  open_cart 
+post '/' do
+  CartService::Endpoints::OpenCart.do_action(self, @body)
 end
 
-put '/add/:id' do
-  add_product
+post '/:id/product/:product_id' do
+  CartService::Endpoints::AddProduct.do_action(self, @body)
 end
 
-delete '/remove/:id' do
-  remove_product
+delete '/:id/product/:product_id' do
+  CartService::Endpoints::RemoveProduct.do_action(self, @body)
 end

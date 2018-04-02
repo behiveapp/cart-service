@@ -1,4 +1,4 @@
-# DOCKER_TEST = "./docker-compose-test.yml"
+DOCKER_TEST = "./docker-compose-test.yml"
 install:
 	docker-compose build
 start: 
@@ -7,10 +7,6 @@ start-debug:
 	docker-compose up -d
 	docker attach cart-service
 test:
-	docker-compose run app bundle exec rspec
+	docker-compose -f $(DOCKER_TEST) run app bundle exec rspec
 rubocop:
 	docker-compose run app rubocop
-# test-unit:
-# 	docker-compose -f $(DOCKER_TEST) run app npm run test-unit
-# test-system:
-# 	docker-compose -f $(DOCKER_TEST) run app npm run test-system
