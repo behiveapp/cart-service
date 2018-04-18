@@ -1,13 +1,14 @@
 $LOAD_PATH.unshift File.dirname(__FILE__)
 require 'app'
 
-@port = ENV['PORT'].strip.empty? ? 3000 : ENV['PORT']
+Mongoid.load!("#{File.dirname(__FILE__)}/mongoid.yml")
 
-configure do
-  set :server, :puma
-  set :run, true
-  set :bind, '0.0.0.0'
-  set :port, @port
+module BSON
+  # Monkey path for ObjectId of a MongoDB document
+  class ObjectId
+    alias to_json to_s
+    alias as_json to_s
+  end
 end
 
-Sinatra::Application.run!
+CartServiceApp.run!

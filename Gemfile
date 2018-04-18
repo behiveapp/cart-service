@@ -12,6 +12,7 @@ gem 'rest-client'
 
 group :development do
   gem 'byebug'
+  gem 'rerun'
   gem 'rubocop', '~> 0.54.0', require: false
 end
 

@@ -12,4 +12,5 @@ class Product < Record
   field :seller_identifier, type: String
   field :code, type: String
   field :name, type: String
+  field :categories, type: Array
 end
