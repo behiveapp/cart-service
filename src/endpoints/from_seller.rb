@@ -14,7 +14,7 @@ module CartService
               'seller._id' => BSON::ObjectId.from_string(params[:seller_id])
             ).where status: (params['status'] || 0)
             json @cart
-          rescue Mongoid::Errors::DocumentNotFound
+          rescue Mongoid::Errors::DocumentNotFound, BSON::ObjectId::Invalid
             raise RecordNotFoundError, params[:seller_id]
           end
         end
