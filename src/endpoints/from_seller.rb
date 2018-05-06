@@ -12,7 +12,7 @@ module CartService
           begin
             @cart = Cart.where(
               'seller._id' => BSON::ObjectId.from_string(params[:seller_id])
-            )
+            ).where status: (params['status'] || 0)
             json @cart
           rescue Mongoid::Errors::DocumentNotFound
             raise RecordNotFoundError, params[:seller_id]
