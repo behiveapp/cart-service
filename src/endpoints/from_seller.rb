@@ -8,7 +8,7 @@ module CartService
     # Module representing GET /:id endpoint
     module FromSeller
       def self.registered(app)
-        app.get '/from_seller/:seller_id' do
+        app.get '/from-seller/:seller_id' do
           begin
             @cart = Cart.where(
               'seller._id' => BSON::ObjectId.from_string(params[:seller_id])
