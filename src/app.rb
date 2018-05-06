@@ -6,6 +6,7 @@ require_relative 'router'
 class CartServiceApp < Sinatra::Base
   use ErrorTracking
   register CartService::Endpoints::GetCart
+  register CartService::Endpoints::FromSeller
   register CartService::Endpoints::OpenCart
   register CartService::Endpoints::AddProduct
   register CartService::Endpoints::RemoveProduct
