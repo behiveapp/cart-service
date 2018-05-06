@@ -12,5 +12,6 @@ class Product < Record
   field :seller_identifier, type: String
   field :code, type: String
   field :name, type: String
+  field :price, type: Float, default: 0
   field :categories, type: Array
 end

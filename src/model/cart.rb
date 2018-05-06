@@ -11,6 +11,13 @@ class Cart < Record
   include Mongoid::Timestamps::Updated
 
   field :status, type: Integer, default: 0
+  field :total_price
+
+  def total_price
+    products.inject(0.0) do |prev, product|
+      prev + product.price.to_f
+    end.round(2)
+  end
 
   embeds_one :buyer
   embeds_one :seller
