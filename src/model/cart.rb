@@ -24,7 +24,11 @@ class Cart < Record
   embeds_many :products
   accepts_nested_attributes_for :buyer, :seller, :products
 
-  scope :open, -> { where(status: 0) }
+  scope :from_buyer, lambda { |buyer_id|
+    where('buyer._id' => BSON::ObjectId.from_string(buyer_id))
+  }
+
+  scope :opened, -> { where(status: 0) }
   scope :paid, -> { where(status: 1) }
   scope :expired, -> { where(status: 2) }
 end
