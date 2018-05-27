@@ -9,9 +9,11 @@ module CartService
       def self.registered(app)
         app.post '/' do
           begin
-            @cart = Cart.create @body
+            buyer_id = @body['buyer']['_id']
+            existing_cart = Cart.from_buyer(buyer_id).opened.first
+            @cart = existing_cart || (Cart.create @body)
             json @cart
-          rescue StandardError
+          rescue StandardError, BSON::ObjectId::Invalid
             raise ValidationError, @body
           end
         end

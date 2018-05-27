@@ -8,6 +8,7 @@ class CartServiceApp < Sinatra::Base
   register CartService::Endpoints::GetCart
   register CartService::Endpoints::FromSeller
   register CartService::Endpoints::OpenCart
+  register CartService::Endpoints::CloseCart
   register CartService::Endpoints::AddProduct
   register CartService::Endpoints::RemoveProduct
 
