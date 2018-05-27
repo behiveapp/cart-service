@@ -7,6 +7,7 @@ class CartServiceApp < Sinatra::Base
   use ErrorTracking
   register CartService::Endpoints::GetCart
   register CartService::Endpoints::FromSeller
+  register CartService::Endpoints::FromBuyer
   register CartService::Endpoints::OpenCart
   register CartService::Endpoints::CloseCart
   register CartService::Endpoints::AddProduct
